@@ -13,3 +13,69 @@
 
 # Dependency directories (remove the comment below to include it)
 # vendor/
+
+# Windows image file caches
+Thumbs.db
+ehthumbs.db
+
+# Folder config file
+Desktop.ini
+
+# Recycle Bin used on file shares
+$RECYCLE.BIN/
+
+# Mac
+.DS_Store
+
+# Office
+\~\$*.doc
+\~\$*.docx
+\~\$*.ppt
+\~\$*.pptx
+\~\$*.xls
+\~\$*.xlsx
+
+# Object files
+*.o
+#
+## Libraries
+*.lib
+*.a
+#
+## Shared objects (inc. Windows DLLs)
+*.so.*
+#
+## Executables
+*.app
+
+# Not use git
+*.ngit
+
+# Vim
+.ycm_simple_conf.xml
+.workspace.env
+.workspace.vim
+.workspace_syntax.vim
+tags
+cscope.out
+.idea
+.svn
+.git.*
+.gitconfig
+core.*
+*.syntax
+.vim
+
+# Custom
+*.pyc
+.xmake
+*.tmp
+.test.*
+*.bk
+
+# java
+.classpath
+.project
+.settings
+
+.vscode
