@@ -2,10 +2,7 @@ package alfred_go_pacakge_search
 
 import (
 	"context"
-	"encoding/json"
 	"fmt"
-	"io/ioutil"
-	"net/http"
 	"sort"
 	"time"
 )
@@ -83,30 +80,13 @@ func SearchGoPackages(q string, limit int) ([]*GoPackage, error) {
 		limit = defaultPageLimit
 	}
 
-	request, err := http.NewRequest(http.MethodGet, fmt.Sprintf(goPackageSearchApiFormat, q), nil)
-	if err != nil {
-		return nil, err
-	}
-
 	// set request timeout
-	ctx, cancel := context.WithTimeout(context.Background(), 50*time.Second)
+	ctx, cancel := context.WithTimeout(context.Background(), 10*time.Second)
 	defer cancel()
-	request = request.WithContext(ctx)
-
-	response, err := http.DefaultClient.Do(request)
-	if err != nil {
-		return nil, fmt.Errorf("failed to send a http GET request: %w", err)
-	}
-	defer response.Body.Close()
-
-	body, err := ioutil.ReadAll(response.Body)
-	if err != nil {
-		return nil, fmt.Errorf("failed to read response body: %w", err)
-	}
 
 	results := new(GoPackageSearchResult)
-	if err := json.Unmarshal(body, results); err != nil {
-		return nil, fmt.Errorf("failed to unmarshal response body to json: %w", err)
+	if err := httpGet(ctx, fmt.Sprintf(goPackageSearchApiFormat, q), results); err != nil {
+		return nil, err
 	}
 
 	// sort result item by score

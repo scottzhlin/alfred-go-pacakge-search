@@ -4,7 +4,7 @@ import (
 	"fmt"
 
 	aw "github.com/deanishe/awgo"
-	alfred_go_pacakge_search "github.com/scottzhlin/alfred-go-pacakge-search"
+	gopkg "github.com/scottzhlin/alfred-go-pacakge-search"
 )
 
 var alfredWorkFlow *aw.Workflow
@@ -24,7 +24,7 @@ func run() {
 	alfredWorkFlow.Configure(aw.SuppressUIDs(true))
 
 	query := alfredWorkFlow.Args()[0]
-	results, err := alfred_go_pacakge_search.SearchGoPackages(query, 10)
+	results, err := gopkg.SearchGoPackages(query, 10)
 	if err != nil {
 		alfredWorkFlow.FatalError(err)
 		alfredWorkFlow.SendFeedback()
@@ -36,6 +36,7 @@ func run() {
 			Subtitle(pkg.Path).
 			Arg(pkg.Path).
 			UID(fmt.Sprintf("%s:%s", pkg.Name, pkg.Path)).
+			Icon(&aw.Icon{Value: "./icon.png"}).
 			Valid(true)
 	}
 
